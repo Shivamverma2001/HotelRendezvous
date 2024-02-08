@@ -10,6 +10,7 @@ spring:
 
   jpa:
     show-sql: true
+    open-in-view: false
     hibernate:
       ddl-auto: update
       format_sql: true
@@ -19,3 +20,4 @@ spring:
       max-file-size: 5MB
       max-request-size: 5MB
       file-size-threshold: 2KB
+
