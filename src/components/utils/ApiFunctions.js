@@ -23,6 +23,7 @@ export async function addRoom(photo, roomType, roomPrice){
 export async function getRoomType() {
     try {
         const response = await api.get("/rooms/room-types");
+        console.log(response)
         return response.data;
         
     } catch (error) {

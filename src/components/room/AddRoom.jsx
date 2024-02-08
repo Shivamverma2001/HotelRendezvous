@@ -19,7 +19,7 @@ const AddRoom = () => {
 
         if(name==='roomPrice'){
             if(!isNaN(value)){
-                value.parseInt(value);
+                value=parseInt(value,10);
             }else{
                 value="";
             }
@@ -59,7 +59,7 @@ const AddRoom = () => {
         <div className='row justify-content-center'>
             <div className='col-md-8 col-lg-6'>
                 <h2 className='mt-5 mb-2'>Add a new Room</h2>
-                <form onClick={handleSubmit}>
+                <form onSubmit={handleSubmit}>
 
                     <div className="mb3">
                         <label htmlFor="roomType" className='form-label'>
@@ -86,7 +86,7 @@ const AddRoom = () => {
                         )}
                     </div>
                     <div className='d-grid d-md-flex mt-2'>
-                        <button className='btn btn-outline-primary ml-5'>Save Room</button>
+                        <button className='btn btn-outline-primary ml-5' type='submit'>Save Room</button>
                     </div>
                 </form>
             </div>
