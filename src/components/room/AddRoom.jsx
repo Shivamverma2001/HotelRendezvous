@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import {addRoom} from "../utils/ApiFunctions"
 import RoomTypeSelector from "../common/RoomTypeSelector"
 import ExistingRooms from './ExistingRooms'
+import { Link } from 'react-router-dom'
 const AddRoom = () => {
 
     const [newRoom, setNewRoom]=useState({
@@ -96,11 +97,14 @@ const AddRoom = () => {
                         </label>
                         <input className='form-control' required id='roomPhoto' name='roomPhoto' type='file' onChange={handleImageChange}/>
                         {imagePreview &&(
-                            <img src={imagePreview} alt='Preview Room Image' style={{minWidth:"400px", maxHeight:"400px"}} className='mb-3'/>
+                            <img src={imagePreview} alt='Preview Room Image' style={{maxWidth:"400px", maxHeight:"400px"}} className='mt-3'/>
                         )}
                     </div>
-                    <div className='d-grid d-md-flex mt-2'>
-                        <button className='btn btn-outline-primary ml-5' type='submit'>Save Room</button>
+                    <div className='d-grid gap-2 d-md-flex mt-2'>
+                        <Link to={"/existing-rooms"} className='btn btn-outline-info ml-5'>
+                            back
+                        </Link>
+                        <button className='btn btn-warning' type='submit'>Edit Room</button>
                     </div>
                 </form>
             </div>
