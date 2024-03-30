@@ -76,7 +76,7 @@ const AddRoom = () => {
 
                 <form onSubmit={handleSubmit}>
 
-                    <div className="mb3">
+                    <div className="mb-3">
                         <label htmlFor="roomType" className='form-label'>
                             Room Type
                         </label>
@@ -85,14 +85,14 @@ const AddRoom = () => {
                         </div>
                     </div>
 
-                    <div className="mb3">
+                    <div className="mb-3">
                         <label htmlFor="roomPrice" className='form-label'>
                             Room Price
                         </label>
                         <input className='form-control' required id='roomPrice' name='roomPrice' type='number' onChange={handleRoomInputChange}/>
                     </div>
-                    <div className="mb3">
-                        <label htmlFor="roomPhoto" className='form-label'>
+                    <div className="mb-3">
+                        <label htmlFor="roomPhoto" className='form-label hotel-color'>
                             Room Photo
                         </label>
                         <input className='form-control' required id='roomPhoto' name='roomPhoto' type='file' onChange={handleImageChange}/>
