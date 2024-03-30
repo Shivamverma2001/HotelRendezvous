@@ -93,6 +93,7 @@ public class RoomController {
     @GetMapping("/room/{roomId}")
     public ResponseEntity<Optional<RoomResponse>> getRoomById(@PathVariable Long roomId){
         Optional<Room> theRoom=roomService.getRoomById(roomId);
+        System.out.println(theRoom.get().getPhoto());
         return theRoom.map(room->{
             RoomResponse roomResponse=getRoomResponse(room);
             return ResponseEntity.ok(Optional.of(roomResponse));
@@ -116,7 +117,8 @@ public class RoomController {
                 throw new PhotoRetrievalException("Error retrieving photo");
             }
         }
-        return new RoomResponse(room.getId(),
+        return new RoomResponse(
+                room.getId(),
                 room.getRoomType(),
                 room.getRoomPrice(),
                 room.isBooked(),photoBytes);
