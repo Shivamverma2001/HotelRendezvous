@@ -14,8 +14,17 @@ const EditRoom = () => {
     const { roomId } = useParams();
 
     const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setRoom({ ...room, [name]: value });
+        const name=e.target.name;
+        let value=e.target.value;
+
+        if(name==='roomPrice'){
+            if(!isNaN(value)){
+                value=parseInt(value,10);
+            }else{
+                value="";
+            }
+        }
+        setRoom({...room,[name]:value})
     };
 
     const handleImageChange = (e) => {
@@ -28,14 +37,11 @@ const EditRoom = () => {
         const fetchRoom = async () => {
             try {
                 const roomData = await getRoomById(roomId);
-                console.log("Room Data from API:", roomData); // Log room data received from API
                 setRoom(roomData);
-                console.log("Room Data after setRoom:", room); // Log room data after updating state
                 if (roomData.photo) {
                     const blob = new Blob([roomData.photo], { type: 'image/jpeg' });
                     const url = URL.createObjectURL(blob);
                     setImagePreview(url);
-                    console.log("Image URL:", url); // Log image URL
                 }
             } catch (error) {
                 console.error(error);
@@ -48,7 +54,6 @@ const EditRoom = () => {
         e.preventDefault();
         try {
             const response = await updateRoom(roomId, room);
-            console.log("Update Room Response:", response); // Log response from updateRoom function
             if (response.status === 200) {
                 setSuccessMessage("Room updated successfully");
                 const updatedRoomData = await getRoomById(roomId);
@@ -56,8 +61,7 @@ const EditRoom = () => {
                 if (updatedRoomData.photo) {
                     const blob = new Blob([updatedRoomData.photo], { type: 'image/jpeg' });
                     const url = URL.createObjectURL(blob);
-                    setImagePreview(url);
-                    console.log("Updated Image URL:", url); // Log updated image URL
+                    setImagePreview(updatedRoomData.photo);
                 }
                 setErrorMessage("");
             } else {
@@ -67,19 +71,21 @@ const EditRoom = () => {
             setErrorMessage(error.message);
         }
     };
+    
 
     return (
         <>
             <section className='container mt-5 mb-5'>
                 <div className='row justify-content-center'>
                     <div className='col-md-8 col-lg-6'>
-                        <h2 className='mt-5 mb-2'>Add a new Room</h2>
+                        <h2 className='mt-5 mb-2'>Edit Room</h2>
                         {successMessage && (
                             <div className='alert alert-success fade show'>{successMessage}</div>
                         )}
                         {errorMessage && (
                             <div className='alert alert-danger fade show'>{errorMessage}</div>
                         )}
+
                         <form onSubmit={handleSubmit}>
                             <div className="mb-3">
                                 <label htmlFor="roomType" className='form-label'>

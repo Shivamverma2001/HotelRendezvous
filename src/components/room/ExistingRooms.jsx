@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { deleteRoom, getAllRooms } from '../utils/ApiFunctions';
 import RoomFilter from '../common/RoomFilter';
 import RoomPaginator from '../common/RoomPaginator';
-import {FaEdit, FaEye, FaTrashAlt} from 'react-icons/fa'
-import {Link} from 'react-router-dom'
+import { FaEdit, FaEye, FaPlus, FaTrashAlt } from 'react-icons/fa'
+import { Link } from 'react-router-dom'
+import { Col, Row } from 'react-bootstrap';
 
 const ExistingRooms = () => {
     const [rooms, setRooms] = useState([]);
@@ -45,22 +46,22 @@ const ExistingRooms = () => {
         setCurrentPage(pageNumber);
     };
 
-    const handleDelete=async(roomId)=>{
+    const handleDelete = async (roomId) => {
         try {
-            const result=await deleteRoom(roomId);
-            if(result==""){
+            const result = await deleteRoom(roomId);
+            if (result == "") {
                 setSuccessMessage(`Room number ${roomId} was deleted`)
                 fetchRooms()
-            }else{
-                console.error( `Error deleting room: ${result.message}`)
+            } else {
+                console.error(`Error deleting room: ${result.message}`)
             }
         } catch (error) {
             setErrorMessage(error.message)
         }
-        setTimeout(()=>{
+        setTimeout(() => {
             setSuccessMessage("")
             setErrorMessage("")
-        },3000)
+        }, 3000)
     }
     const calculateTotalPages = (filteredRooms, roomsPerPage, rooms) => {
         const totalRooms = filteredRooms.length > 0 ? filteredRooms.length : rooms.length;
@@ -78,10 +79,19 @@ const ExistingRooms = () => {
             ) : (
                 <>
                     <section className='mt-5 mb-5 container'>
-                        <div className='d-flex justify-content-center mb-3 mt-5'>
+                        <div className='d-flex justify-content-between mb-3 mt-5'>
                             <h2>Existing Rooms</h2>
                         </div>
-                        <RoomFilter data={rooms} setFilteredData={setFilteredRooms} />
+                        <Row>
+                            <Col md={6} className='mb-2 md-mb-0'>
+                                <RoomFilter data={rooms} setFilteredData={setFilteredRooms} />
+                            </Col>
+                            <Col md={6} className='d-flex justify-content-end'>
+                                <Link to={"/add-room"}>
+                                    <FaPlus />Add Room
+                                </Link>
+                            </Col>
+                        </Row>
                         <table className='table table-bordered table-hover'>
                             <thead>
                                 <tr className='text-center'>
@@ -100,15 +110,15 @@ const ExistingRooms = () => {
                                         <td className='gap-2'>
                                             <Link to={`/edit-room/${room.id}`}>
                                                 <span className="btn btn-info btn-sm">
-                                                    <FaEye/>
+                                                    <FaEye />
                                                 </span>
                                                 <span className="btn btn-warning btn-sm">
-                                                    <FaEdit/>
+                                                    <FaEdit />
                                                 </span>
                                             </Link>
                                             <button className='btn btn-danger btn-sm'
-                                            onClick={() => handleDelete(room.id)}>
-                                                <FaTrashAlt/>
+                                                onClick={() => handleDelete(room.id)}>
+                                                <FaTrashAlt />
                                             </button>
                                         </td>
                                     </tr>

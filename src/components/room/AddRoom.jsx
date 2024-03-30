@@ -102,9 +102,9 @@ const AddRoom = () => {
                     </div>
                     <div className='d-grid gap-2 d-md-flex mt-2'>
                         <Link to={"/existing-rooms"} className='btn btn-outline-info ml-5'>
-                            back
+                            Back
                         </Link>
-                        <button className='btn btn-warning' type='submit'>Edit Room</button>
+                        <button className='btn btn-outline-primary ml-5' type='submit'>Save Room</button>
                     </div>
                 </form>
             </div>
