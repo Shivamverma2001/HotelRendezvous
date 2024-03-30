@@ -80,15 +80,19 @@ public class RoomController {
             @RequestParam(required = false) BigDecimal roomPrice,
             @RequestParam(required = false) MultipartFile photo) throws SQLException, IOException {
 
-        byte[] photoBytes=photo!=null && !photo.isEmpty()?
+        byte[] photoBytes = photo != null && !photo.isEmpty() ?
                 photo.getBytes() : roomService.getRoomPhotoById(roomId);
-        Blob photoBlob=photoBytes!=null && photoBytes.length>0 ? new SerialBlob(photoBytes):null;
-
-        Room theRoom=roomService.updateRoom(roomId,roomType,roomPrice,photoBytes);
+        Blob photoBlob = photoBytes != null && photoBytes.length > 0 ? new SerialBlob(photoBytes) : null;
+        System.out.println(photoBytes);
+        System.out.println(roomId);
+        System.out.println(roomType);
+        System.out.println(roomPrice);
+        Room theRoom = roomService.updateRoom(roomId, roomType, roomPrice, photoBytes);
         theRoom.setPhoto(photoBlob);
-        RoomResponse roomResponse=getRoomResponse(theRoom);
+        RoomResponse roomResponse = getRoomResponse(theRoom);
         return ResponseEntity.ok(roomResponse);
     }
+
 
     @GetMapping("/room/{roomId}")
     public ResponseEntity<Optional<RoomResponse>> getRoomById(@PathVariable Long roomId){

@@ -73,6 +73,10 @@ public class RoomServiceImpl implements RoomService{
     public Room updateRoom(Long roomId, String roomType, BigDecimal roomPrice, byte[] photoBytes) throws InternalServerException {
         Room room=roomRepository.findById(roomId).
                 orElseThrow(()->new ResourceNotFoundException("Room not found"));
+        System.out.println("Room update"+room.getRoomPrice());
+        System.out.println(roomType);
+        System.out.println(roomPrice);
+        System.out.println(photoBytes);
         if(roomType!=null){
             room.setRoomType(roomType);
         }
