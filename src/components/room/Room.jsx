@@ -10,7 +10,7 @@ const Room = () => {
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const [roomsPerPage] = useState(6); // Using useState instead of useState
+    const [roomsPerPage] = useState(6); 
     const [filteredData, setFilteredData] = useState([]);
 
     useEffect(() => {

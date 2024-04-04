@@ -12,7 +12,21 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+.parallax{
+  background-image: url("./assets/images/doubleBed.jpeg");
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 70vh;
+}
+.header{
+  position: relative;
+  height: 150px;
+  background-size: cover;
+  background-image: url("./assets/images/doubleBed.jpeg");
+  background-position: center center;
+}
 a {
   font-weight: 500;
   color: #646cff;
