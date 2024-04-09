@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface RoomRepository extends JpaRepository<Room,Long> {
     @Query("Select distinct r.roomType from Room r")
-    List<String> finDistinctRoomTypes();
+    List<String> findDistinctRoomTypes();
 }

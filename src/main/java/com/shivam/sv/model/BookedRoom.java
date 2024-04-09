@@ -16,23 +16,28 @@ import java.time.LocalDate;
 public class BookedRoom {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "booking_id")
     private Long bookingId;
 
-    @Column(name = "check_in")
+    @Column(name = "check_In")
     private LocalDate checkInDate;
 
-    @Column(name = "check_out")
+    @Column(name = "check_Out")
     private LocalDate checkOutDate;
 
     @Column(name = "total_guests")
     private int totalNumberOfGuests;
 
     @Column(name = "adults")
-    private int numOfAdults;
+    private int numberOfAdults;
 
     @Column(name = "children")
-    private int numOfChildren;
+    private int numberOfChildren;
+
+    @Column(name = "guest_FullName")
+    private String guestName;
+
+    @Column(name = "guest_Email")
+    private String guestEmail;
 
     @Column(name = "confirmation_code")
     private String bookingConfirmationCode;
@@ -41,20 +46,24 @@ public class BookedRoom {
     @JoinColumn(name = "room_id")
     private Room room;
 
-    private void calculateNumberOfGuests(){
-        this.totalNumberOfGuests=this.numOfAdults+this.numOfChildren;
+    // Method to calculate the total number of guests
+    private void calculateNumberOfGuests() {
+        this.totalNumberOfGuests = this.numberOfAdults + this.numberOfChildren;
     }
 
+    // Setter for the number of adults, also recalculates the total number of guests
     public void setNumOfAdults(int numOfAdults) {
-        this.numOfAdults = numOfAdults;
-        calculateNumberOfGuests();
+        this.numberOfAdults = numOfAdults;
+        this.calculateNumberOfGuests();
     }
 
+    // Setter for the number of children, also recalculates the total number of guests
     public void setNumOfChildren(int numOfChildren) {
-        this.numOfChildren = numOfChildren;
-        calculateNumberOfGuests();
+        this.numberOfChildren = numOfChildren;
+        this.calculateNumberOfGuests();
     }
 
+    // Setter for the booking confirmation code
     public void setBookingConfirmationCode(String bookingConfirmationCode) {
         this.bookingConfirmationCode = bookingConfirmationCode;
     }

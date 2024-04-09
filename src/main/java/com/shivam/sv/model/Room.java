@@ -28,7 +28,7 @@ public class Room {
     private Blob photo;
 
     @OneToMany(mappedBy = "room",
-            fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+            fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private List<BookedRoom> bookings;
 
     public Room(){
