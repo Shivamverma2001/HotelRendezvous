@@ -47,6 +47,7 @@ public class RoomController {
 
     @GetMapping("/room/types")
     public List<String> getRoomTypes() {
+        System.out.println("Room type ........................");
         return roomService.getAllRoomTypes();
     }
 
