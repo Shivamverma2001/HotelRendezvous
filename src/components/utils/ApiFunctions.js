@@ -22,10 +22,12 @@ export async function addRoom(photo, roomType, roomPrice){
 //get room by room type
 export async function getRoomType() {
     try {
-        const response = await api.get("/rooms/room-types");
+        const response = await api.get("/rooms/room/types");
+        console.log("done........")
         return response.data;
         
     } catch (error) {
+        console.log("Error.............")
         throw new Error("Error fetching room type");
     }
 }
@@ -110,4 +112,13 @@ export async function cancelBooking(bookingId) {
 	} catch (error) {
 		throw new Error(`Error cancelling booking :${error.message}`)
 	}
+}
+
+/* This function gets all availavle rooms from the database with a given date and a room type */
+export async function getAvailableRooms(checkInDate, checkOutDate, roomType) {
+	const result = await api.get(
+		`rooms/available-rooms?checkInDate=${checkInDate}
+		&checkOutDate=${checkOutDate}&roomType=${roomType}`
+	)
+	return result
 }
