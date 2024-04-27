@@ -30,13 +30,13 @@ export async function getRoomType() {
     }
 }
 // get all rooms
-export async function getAllRooms(){
-    try {
-        const result=await api.get("/rooms/all-rooms");
-        return result.data;
-    } catch (error) {
-        throw new Error("Error fetching rooms");
-    }
+export async function getAllRooms() {
+	try {
+		const result = await api.get("/rooms/all-rooms")
+		return result.data
+	} catch (error) {
+		throw new Error("Error fetching rooms")
+	}
 }
 //delete room by id
 export async function deleteRoom(roomId){
@@ -103,11 +103,11 @@ export async function getBookingByConfirmationCode(confirmationCode){
     }
 }
 //cancel the booking
-export async function cancelBooking(bookingId){
-    try {
-        const result=await api.delete(`bookings/booking/${bookingId}/delete`);
-        return result.data;
-    } catch (error) {
-        throw new Error(`Error cancelling booking: ${error.message}`);
-    }
+export async function cancelBooking(bookingId) {
+	try {
+		const result = await api.delete(`/bookings/booking/${bookingId}/delete`)
+		return result.data
+	} catch (error) {
+		throw new Error(`Error cancelling booking :${error.message}`)
+	}
 }
