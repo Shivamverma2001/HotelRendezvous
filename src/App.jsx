@@ -13,6 +13,7 @@ import RoomListing from './components/room/RoomListing';
 import Checkout from './components/booking/Checkout'
 import Admin from './components/admin/Admin';
 import BookingSuccess from './components/booking/BookingSuccess';
+import Bookings from './components/booking/Bookings';
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
           <Route path='/browse-all-rooms' element={<RoomListing/>}/>
           <Route path='/admin' element={<Admin/>}/>
           <Route path='/booking-success' element={<BookingSuccess/>}/>
+          <Route path='/existing-bookings' element={<Bookings/>}/>
         </Routes>
       </Router>
       <Footer/>
