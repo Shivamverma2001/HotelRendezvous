@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 
+
 @Entity
 @Getter
 @Setter
@@ -16,54 +17,53 @@ import java.time.LocalDate;
 public class BookedRoom {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long bookingId;
+    private  Long bookingId;
 
-    @Column(name = "check_In")
+    @Column(name = "check_in")
     private LocalDate checkInDate;
 
-    @Column(name = "check_Out")
+    @Column(name = "check_out")
     private LocalDate checkOutDate;
 
-    @Column(name = "total_guests")
-    private int totalNumberOfGuests;
+    @Column(name = "guest_fullName")
+    private String guestFullName;
 
-    @Column(name = "adults")
-    private int numberOfAdults;
-
-    @Column(name = "children")
-    private int numberOfChildren;
-
-    @Column(name = "guest_FullName")
-    private String guestName;
-
-    @Column(name = "guest_Email")
+    @Column(name = "guest_email")
     private String guestEmail;
 
-    @Column(name = "confirmation_code")
+    @Column(name = "adults")
+    private int NumOfAdults;
+
+    @Column(name = "children")
+    private int NumOfChildren;
+
+    @Column(name = "total_guest")
+    private Integer totalNumOfGuest;
+
+    @Column(name = "confirmation_Code")
     private String bookingConfirmationCode;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "room_id")
     private Room room;
 
-    // Method to calculate the total number of guests
-    private void calculateNumberOfGuests() {
-        this.totalNumberOfGuests = this.numberOfAdults + this.numberOfChildren;
+    public void calculateTotalNumberOfGuest(){
+        this.totalNumOfGuest = this.NumOfAdults + NumOfChildren;
     }
 
-    // Setter for the number of adults, also recalculates the total number of guests
     public void setNumOfAdults(int numOfAdults) {
-        this.numberOfAdults = numOfAdults;
-        this.calculateNumberOfGuests();
+        NumOfAdults = numOfAdults;
+        calculateTotalNumberOfGuest();
     }
 
-    // Setter for the number of children, also recalculates the total number of guests
     public void setNumOfChildren(int numOfChildren) {
-        this.numberOfChildren = numOfChildren;
-        this.calculateNumberOfGuests();
+        NumOfChildren = numOfChildren;
+        calculateTotalNumberOfGuest();
+    }
+    public Integer getTotalNumOfGuest() {
+        return totalNumOfGuest != null ? totalNumOfGuest : 0; // Providing default value 0 if totalNumOfGuest is null
     }
 
-    // Setter for the booking confirmation code
     public void setBookingConfirmationCode(String bookingConfirmationCode) {
         this.bookingConfirmationCode = bookingConfirmationCode;
     }
