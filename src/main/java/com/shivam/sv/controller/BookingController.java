@@ -11,12 +11,12 @@ import com.shivam.sv.service.IRoomService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@CrossOrigin("http://localhost:5173")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/bookings")
@@ -25,15 +25,14 @@ public class BookingController {
     private final IRoomService roomService;
 
     @GetMapping("/all-bookings")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<List<BookingResponse>> getAllBookings(){
         List<BookedRoom> bookings = bookingService.getAllBookings();
-        System.out.println("Bookings ..............."+bookings.toString());
         List<BookingResponse> bookingResponses = new ArrayList<>();
         for (BookedRoom booking : bookings){
             BookingResponse bookingResponse = getBookingResponse(booking);
             bookingResponses.add(bookingResponse);
         }
-        System.out.println("After for..........................");
         return ResponseEntity.ok(bookingResponses);
     }
 
