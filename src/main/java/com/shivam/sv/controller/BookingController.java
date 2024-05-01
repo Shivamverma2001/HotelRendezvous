@@ -27,12 +27,16 @@ public class BookingController {
     @GetMapping("/all-bookings")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<List<BookingResponse>> getAllBookings(){
+        System.out.println("al bookings....................");
         List<BookedRoom> bookings = bookingService.getAllBookings();
+        System.out.println("bookings............"+bookings.toString());
         List<BookingResponse> bookingResponses = new ArrayList<>();
         for (BookedRoom booking : bookings){
             BookingResponse bookingResponse = getBookingResponse(booking);
+            System.out.println("a1................");
             bookingResponses.add(bookingResponse);
         }
+        System.out.println("Out.....................");
         return ResponseEntity.ok(bookingResponses);
     }
 
