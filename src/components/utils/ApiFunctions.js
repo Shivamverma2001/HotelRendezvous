@@ -6,7 +6,6 @@ export const api= axios.create({
 
 export const getHeader = () => {
 	const token = localStorage.getItem("token")
-	console.log("token.........",token)
 	return {
 		Authorization: `Bearer ${token}`,
 		"Content-Type": "application/json"
@@ -22,8 +21,9 @@ export async function addRoom(photo, roomType, roomPrice){
     formData.append( "roomType",roomType);
     formData.append("roomPrice",roomPrice);
 
-    const response=await api.post("/rooms/add/new-room",formData);
-
+	const response = await api.post("/rooms/add/new-room", formData,{
+		headers: getHeader()
+	})
     if(response.status===201){
         return true;
     }else{
@@ -34,11 +34,9 @@ export async function addRoom(photo, roomType, roomPrice){
 export async function getRoomType() {
     try {
         const response = await api.get("/rooms/room/types");
-        console.log("done........")
         return response.data;
         
     } catch (error) {
-        console.log("Error.............")
         throw new Error("Error fetching room type");
     }
 }
@@ -54,11 +52,13 @@ export async function getAllRooms() {
 //delete room by id
 export async function deleteRoom(roomId){
     try {
-        const result=await api.get(`rooms/delete/room/${roomId}`)
-        return result.data
-    } catch (error) {
-        throw new Error(`Error deleting room ${error.message}`);
-    }
+		const result = await api.delete(`/rooms/delete/room/${roomId}`, {
+			headers: getHeader()
+		})
+		return result.data
+	} catch (error) {
+		throw new Error(`Error deleting room ${error.message}`)
+	}
 }
 //update room by id
 export async function updateRoom(roomId,roomData){
@@ -66,7 +66,9 @@ export async function updateRoom(roomId,roomData){
     formData.append("roomType",roomData.roomType);
     formData.append("roomPrice",roomData.roomPrice);
     formData.append("photo",roomData.photo);
-    const response=await api.put(`/rooms/update/${roomId}`,formData);
+    const response = await api.put(`/rooms/update/${roomId}`, formData,{
+		headers: getHeader()
+	})
     return response;
 }
 //get room by id
@@ -79,28 +81,28 @@ export async function getRoomById(roomId){
     }
 }
 //save a new booking to the database
-export async function bookRoom(roomId,booking){
-    try {
-        const response=await api.post(`/bookings/room/${roomId}/booking`,booking);
-        console.log(response.data)
-        return response.data;
-    } catch (error) {
-        if(error.response && error.response.data){
-            throw new Error(error.response.data);
-        }else{
-            throw new Error(`Error booking room: ${error.message}`)
-        }
-    }
-    
+export async function bookRoom(roomId, booking) {
+	try {
+		const response = await api.post(`/bookings/room/${roomId}/booking`, booking)
+		return response.data
+	} catch (error) {
+		if (error.response && error.response.data) {
+			throw new Error(error.response.data)
+		} else {
+			throw new Error(`Error booking room : ${error.message}`)
+		}
+	}
 }
 //find all bookings
 export async function getAllBookings(){
     try {
-        const result=await api.get(`bookings/all-bookings`);
-        return result.data;
-    } catch (error) {
-        throw new Error(`Error fetching bookings: ${error.message}`);
-    }
+		const result = await api.get("/bookings/all-bookings", {
+			headers: getHeader()
+		})
+		return result.data
+	} catch (error) {
+		throw new Error(`Error fetching bookings : ${error.message}`)
+	}
 }
 //get booking by confirmation code
 export async function getBookingByConfirmationCode(confirmationCode){

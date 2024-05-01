@@ -3,7 +3,7 @@ import moment from "moment"
 import { useNavigate } from 'react-router-dom'
 import { Button } from 'react-bootstrap'
 
-const BookingSummary = ({ booking, payment, isFormValid, onConfirm }) => {
+const BookingSummary = ({ booking, payment, isFormValid, onSubmit }) => {
 	const checkInDate = moment(booking.checkInDate)
 	const checkOutDate = moment(booking.checkOutDate)
 	const numberOfDays = checkOutDate.diff(checkInDate, "days")
@@ -16,7 +16,7 @@ const BookingSummary = ({ booking, payment, isFormValid, onConfirm }) => {
 		setTimeout(() => {
 			setIsProcessingPayment(false)
 			setIsBookingConfirmed(true)
-			onConfirm()
+			onSubmit()
 		}, 3000)
 	}
 

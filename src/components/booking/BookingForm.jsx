@@ -24,6 +24,7 @@ const currentUser = localStorage.getItem("userId")
 	})
 
 	const { roomId } = useParams()
+	console.log(roomId);
 	const navigate = useNavigate()
 
 	const handleInputChange = (e) => {
@@ -83,6 +84,7 @@ const currentUser = localStorage.getItem("userId")
 	}
 
 	const handleFormSubmit = async () => {
+		console.log(roomId);
 		try {
 			const confirmationCode = await bookRoom(roomId, booking)
 			setIsSubmitted(true)
@@ -240,7 +242,7 @@ const currentUser = localStorage.getItem("userId")
 							<BookingSummary
 								booking={booking}
 								payment={calculatePayment()}
-								onConfirm={handleFormSubmit}
+								onSubmit={handleFormSubmit}
 								isFormValid={validated}
 							/>
 						)}
